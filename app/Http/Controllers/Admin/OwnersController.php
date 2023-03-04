@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Owner; //　エロクアント
 use Illuminate\Support\Facades\DB; // クエリビルダ
 use Carbon\Carbon;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Hash;
 
 class OwnersController extends Controller
@@ -126,6 +127,21 @@ class OwnersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $owner = Owner::findOrFail($id);
+        $owner->delete();
+
+        return Redirect()->route('admin.owners.index');
+    }
+
+    public function expiredOwnerIndex(){
+        $expiredOwners = Owner::onlyTrashed()->get();
+
+        return view('admin.expired-owners', compact('expiredOwners'));
+    }
+
+    public function expiredOwnerDestroy($id){
+        Owner::onlyTrashed()->findOrFail($id)->forceDelete();
+
+        return redirect()->route('admin.expired-owners.index');
     }
 }
