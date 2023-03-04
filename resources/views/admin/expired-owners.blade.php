@@ -44,6 +44,7 @@
                     </div>
                 </div>
                 </section>
+                {{$expiredOwners->links()}}
                 </div>
             </div>
         </div>
