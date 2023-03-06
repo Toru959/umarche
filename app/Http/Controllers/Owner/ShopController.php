@@ -42,6 +42,7 @@ class ShopController extends Controller
     public function edit($id)
     {
 
+        return view('owner.shops.edit');
     }
     public function update(Request $request, $id)
     {
