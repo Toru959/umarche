@@ -21,7 +21,6 @@
                     @endif
                     </div>
                         <div class="text-xl">{{$shop->name}}</div>
-                    </div>
                     <div>
                         @if(empty($shop->filename))
                         <img src="{{asset('images/no_image.jpg')}}">
@@ -32,6 +31,7 @@
                     </a>
                     </div>
                 @endforeach
+                    </div>
                 </div>
             </div>
         </div>
