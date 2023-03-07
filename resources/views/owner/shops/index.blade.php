@@ -21,17 +21,11 @@
                     @endif
                     </div>
                         <div class="text-xl">{{$shop->name}}</div>
-                    <div>
-                        @if(empty($shop->filename))
-                        <img src="{{asset('images/no_image.jpg')}}">
-                        @else
-                        <img src="{{asset('storage/shops/' .$shop->filename)}}">
-                        @endif
+                        <x-shop-thumbnail />
                     </div>
                     </a>
                     </div>
                 @endforeach
-                    </div>
                 </div>
             </div>
         </div>
