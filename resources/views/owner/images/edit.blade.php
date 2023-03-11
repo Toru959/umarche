@@ -28,12 +28,29 @@
                         </div>
                         <div class="p-2 w-1/2 flex justify-around mt-10">
                         <button type="sbumit" class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">更新する</button>
-                        <button type="button" onclick="location.href='{{route('owner.images.index')}}'" class="text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg">戻る</button>
+                        <button type="button" onclick="location.href='{{route('owner.images.index')}}'" class="text-white bg-gray-500 border-0 py-2 px-8 focus:outline-none hover:bg-gray-600 rounded text-lg">戻る</button>
                         </div>
+                    </form>        
+                    <form id="delete_{{$image->id}}" method="post" action="{{route('owner.images.destroy', ['image'=>$image->id])}}">
+                    @csrf
+                    @method('delete')
+                    <div class="p-2 w-1/2 flex justify-around mt-32">
+                    <a href="#" data-id="{{$image->id}}" onclick="deletePost(this)" class="text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg">Delete</a>
+                    </div>
+                    <div class="md:px-4 py-3">
+                    </div>
                     </form>
                     </div>
                 </div>
             </div> 
         </div>
     </div>
+    <script>
+        function deletePost(e){
+            'use strict';
+            if(confirm('本当に削除しても良いですか？')){
+                document.getElementById('delete_'+e.dataset.id).submit();
+            }
+        }
+    </script>
 </x-app-layout>
