@@ -12,13 +12,6 @@
                 <x-auth-validation-errors class="mb-4" :errors="$errors" />
                     <form method="post" action="{{route('owner.products.store')}}">
                         @csrf
-                        <x-select-image :images="$images" name="image1" />
-                        <x-select-image :images="$images" name="image2" />
-                        <x-select-image :images="$images" name="image3" />
-                        <x-select-image :images="$images" name="image4" />
-                        <x-select-image :images="$images" name="image5" />
-
-
                         <div class="m-2">
                             <div class="p-2 mx-auto">
                                 <div class="relative">
@@ -34,7 +27,12 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
+                        </div>  
+                        <x-select-image :images="$images" name="image1" />
+                        <x-select-image :images="$images" name="image2" />
+                        <x-select-image :images="$images" name="image3" />
+                        <x-select-image :images="$images" name="image4" />
+                        <x-select-image :images="$images" name="image5" />
                         <div class="p-2 w-1/2 flex justify-around mt-10">
                             <button type="button" onclick="location.href='{{route('owner.products.index')}}'" class="text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg">戻る</button>
                             <button type="submit" class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">登録する</button>
@@ -46,15 +44,20 @@
     </div>
 <script>
     'use strict'
-    const images = document.querySelectorAll('.image') //全てのimageタグを取得 images.forEach(image => { // 1つずつ繰り返す
+    const images = document.querySelectorAll('.image') //全てのimageタグを取得
+    images.forEach(image => { // 1つずつ繰り返す
+        image.addEventListener('click', function(e){ // クリックしたら
+            const imageName = e.target.dataset.id.substr(0, 6) //data-idの6文字
+            const imageId = e.target.dataset.id.replace(imageName + '_', '') // 6文字カット 
+            const imageFile = e.target.dataset.file
+            const imagePath = e.target.dataset.path
+            const modal = e.target.dataset.modal
 
-    image.addEventListener('click', function(e){ // クリックしたら
-    const imageName = e.target.dataset.id.substr(0, 6) //data-idの6文字
-    const imageId = e.target.dataset.id.replace(imageName + '_', '') // 6文字カット const imageFile = e.target.dataset.file
-    const imagePath = e.target.dataset.path
-    const modal = e.target.dataset.modal
-    // サムネイルと input type=hiddenのvalueに設定
-    document.getElementById(imageName + '_thumbnail').src = imagePath + '/' + imageFile document.getElementById(imageName + '_hidden').value = imageId MicroModal.close(modal); //モーダルを閉じる
+            // サムネイルと input type=hiddenのvalueに設定
+            document.getElementById(imageName + '_thumbnail').src = imagePath + '/' + imageFile
+            document.getElementById(imageName + '_hidden').value = imageId
+            Micromodal.close(modal) //モーダルを閉じる
+        })
     })
 </script>
 
