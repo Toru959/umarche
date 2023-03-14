@@ -102,6 +102,15 @@
                             <button type="submit" class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">更新する</button>
                         </div>
                     </form>
+                    <form id="delete_{{$product->id}}" method="post" action="{{route('owner.products.destroy', ['product'=>$product->id])}}">
+                        @csrf
+                        @method('delete')
+                        <div class="p-2 w-1/2 flex justify-around mt-32">
+                        <a href="#" data-id="{{$product->id}}" onclick="deletePost(this)" class="text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg">Delete</a>
+                        </div>
+                        <div class="md:px-4 py-3">
+                        </div>
+                    </form>
                 </div>
             </div> 
         </div>
@@ -123,6 +132,13 @@
             Micromodal.close(modal) //モーダルを閉じる
         })
     })
+
+    function deletePost(e){
+        'use strict';
+        if(confirm('本当に削除しても良いですか？')){
+            document.getElementById('delete_'+e.dataset.id).submit();
+        }
+    }
 </script>
 
 </x-app-layout>
